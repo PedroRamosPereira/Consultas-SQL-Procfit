@@ -1,0 +1,4 @@
+SELECT DISTINCT ncd.NF_COMPRA, nc.PEDIDO_COMPRA, nc.EMPRESA from NF_COMPRA_DIVERGENCIAS_ENTRADA ncd 
+join NF_COMPRA nc on 
+	ncd.NF_COMPRA = nc.NF_Compra 
+WHERE ncd.aprovacao = 'P'
