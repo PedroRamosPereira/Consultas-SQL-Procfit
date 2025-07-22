@@ -1,7 +1,7 @@
 -----------------------------
 -- VARIÁVEIS DE PARÂMETROS --
 -----------------------------
-DECLARE @EMPRESA NUMERIC(15) = --insira aqui o numero da empresa;
+DECLARE @EMPRESA NUMERIC(15) = 98--insira aqui o numero da empresa;
 
 --------------------------------------------------
 -- GERA TABELA TEMPORÁRIA DO CUSTO --
@@ -9,7 +9,7 @@ DECLARE @EMPRESA NUMERIC(15) = --insira aqui o numero da empresa;
 ;WITH PROD (PRODUTO, NF_RECENTE) AS (
     SELECT 
         PRODUTO, 
-        MAX(NF_COMPRA_PRODUTO)
+        MAX(NF_COMPRA)
     FROM ESPELHO
     WHERE EMPRESA = @EMPRESA
     GROUP BY PRODUTO
@@ -21,7 +21,7 @@ SELECT
     E.CUSTO_FINAL_LIQUIDO AS CUSTO_GERENCIAL
 INTO #TEMP01
 FROM ESPELHO E
-JOIN PROD P ON P.PRODUTO = E.PRODUTO AND P.NF_RECENTE = E.NF_COMPRA_PRODUTO
+JOIN PROD P ON P.PRODUTO = E.PRODUTO AND P.NF_RECENTE = E.NF_COMPRA
 WHERE E.EMPRESA = @EMPRESA
 ORDER BY E.PRODUTO
 
@@ -58,5 +58,3 @@ WHERE
         WHERE EMPRESA_USUARIA = @EMPRESA
     )
 ORDER BY A.PRODUTO
-
-DROP TABLE #TEMP01
